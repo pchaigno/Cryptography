@@ -32,7 +32,7 @@ def modinv(a, m):
 # Main
 #
 if len(sys.argv) != 3:
-    print("usage: " + sys.argv[0] + " <a> <modulo>");
+    print("Usage: " + sys.argv[0] + " <a> <modulus>");
     quit()
 
 a = int(sys.argv[1])
