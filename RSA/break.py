@@ -5,12 +5,17 @@
 #
 
 import sys;
+import operator;
+import functools;
 
 ##
 # Computes Euler's totient function value for the modulus.
 #
-def euler_totient(p1, p2):
-    return (p1 - 1) * (p2 - 1)
+def euler_totient(primes):
+    phi = 1
+    for p in primes:
+        phi *= (p - 1)
+    return phi
 
 ##
 # Extended GCD
@@ -44,14 +49,17 @@ if len(sys.argv) < 6:
 ciphertext = int(sys.argv[1])
 e = int(sys.argv[2])
 n = int(sys.argv[3])
-p1 = int(sys.argv[4])
-p2 = int(sys.argv[5])
+primes = []
+for i in range(4, len(sys.argv)):
+    primes.append(int(sys.argv[i]))
 
-if p1 * p2 != n:
+# Multiply all the prime numbers together.
+primes_together = functools.reduce(operator.mul, primes, 1)
+if primes_together != n:
     print("Incorrect prime factors.")
     exit()
 
-phi = euler_totient(p1, p2)
+phi = euler_totient(primes)
 print("phi(n) = " + str(phi))
 d = modinv(e, phi)
 print("d = " + str(d))
